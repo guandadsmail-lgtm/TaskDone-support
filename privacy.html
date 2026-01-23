@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskDone - Privacy Policy</title>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; }
-        .lang-nav { text-align: right; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .lang-btn { background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #666; margin-left: 5px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; color: #333; }
+        .header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .back-link { text-decoration: none; color: #007AFF; font-weight: 500; }
+        .lang-btn { background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #666; font-size: 13px; }
         .lang-btn.active { background: #007AFF; color: white; border-color: #007AFF; }
+        
         .content-section { display: none; }
         .content-section.active { display: block; }
-        h1 { border-bottom: 2px solid #007AFF; padding-bottom: 10px; }
-        h2 { margin-top: 30px; font-size: 1.2em; color: #444; }
-        .back-link { display: block; margin-bottom: 20px; color: #007AFF; text-decoration: none; }
+        
+        h1 { margin-bottom: 5px; }
+        h2 { margin-top: 25px; font-size: 1.3em; color: #111; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        .update-date { color: #888; font-size: 0.9em; margin-bottom: 30px; }
+        .contact-box { background: #f5f5f7; padding: 15px; border-radius: 8px; margin-top: 20px; font-family: monospace; }
     </style>
     <script>
         function switchLang(lang) {
@@ -23,53 +29,160 @@
             document.getElementById('btn-' + lang).classList.add('active');
         }
         window.onload = function() {
-            let browserLang = navigator.language || navigator.userLanguage;
-            if (browserLang.includes('zh-TW')) switchLang('tw');
-            else if (browserLang.includes('zh')) switchLang('cn');
-            else if (browserLang.includes('es')) switchLang('es');
+            let sys = navigator.language || navigator.userLanguage;
+            if (sys.includes('zh-TW')) switchLang('tw');
+            else if (sys.includes('zh')) switchLang('cn');
+            else if (sys.includes('es')) switchLang('es');
             else switchLang('en');
         }
     </script>
 </head>
 <body>
 
-    <a href="index.html" class="back-link">← Back to Home (返回主页)</a>
-
-    <div class="lang-nav">
-        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
-        <button id="btn-cn" class="lang-btn" onclick="switchLang('cn')">简体中文</button>
-        <button id="btn-tw" class="lang-btn" onclick="switchLang('tw')">繁體中文</button>
-        <button id="btn-es" class="lang-btn" onclick="switchLang('es')">Español</button>
-    </div>
-
-    <div id="en" class="content-section">
-        <h1>Privacy Policy</h1>
-        <p>Last Updated: 2026/01/22</p>
-        <h2>1. Information Collection</h2>
-        <p>We collect basic app usage data and crash logs to improve app quality...</p>
-        <h2>Contact Us</h2>
-        <p>Email: 10884882@qq.com</p>
+    <div class="header-nav">
+        <a href="index.html" class="back-link">← Home / 返回主页</a>
+        <div>
+            <button id="btn-cn" class="lang-btn" onclick="switchLang('cn')">简</button>
+            <button id="btn-tw" class="lang-btn" onclick="switchLang('tw')">繁</button>
+            <button id="btn-en" class="lang-btn" onclick="switchLang('en')">EN</button>
+            <button id="btn-es" class="lang-btn" onclick="switchLang('es')">ES</button>
+        </div>
     </div>
 
     <div id="cn" class="content-section">
-        <h1>隐私政策</h1>
-        <p>最后更新: 2026/01/22</p>
-        <h2>1. 信息收集</h2>
-        <p>我们收集基本的应用使用数据和崩溃日志...</p>
-        <h2>联系我们</h2>
-        <p>邮箱: 10884882@qq.com</p>
+        <h1>TaskDone 隐私政策</h1>
+        <div class="update-date">最后更新：2026年1月22日</div>
+
+        <h2>1. 信息收集与使用</h2>
+        <p>我们收集的信息仅用于提升应用体验。具体包括：</p>
+        <ul>
+            <li><strong>基本应用数据：</strong> 匿名统计数据和崩溃日志，用于修复错误。</li>
+            <li><strong>用户内容：</strong> 您创建的任务、科目和备注存储在本地或通过 iCloud 同步。</li>
+            <li><strong>设备信息：</strong> 设备型号和操作系统版本，用于兼容性优化。</li>
+        </ul>
+        <p>我们承诺不会未经授权收集您的敏感个人信息。</p>
+
+        <h2>2. 数据存储与保护</h2>
+        <p>TaskDone 是一款注重隐私的应用。您的数据主要存储在您的设备本地。如果您开启了 iCloud，数据将加密存储在 Apple 的服务器上。我们无法访问您的 iCloud 数据。</p>
+
+        <h2>3. 数据共享</h2>
+        <p>我们不会将您的数据出售、出租或分享给任何第三方广告商。仅在法律要求或为了保护我们的权利时，才可能披露必要信息。</p>
+
+        <h2>4. 用户权利</h2>
+        <p>您拥有以下权利：</p>
+        <ul>
+            <li>访问、修改或删除应用内存储的所有数据。</li>
+            <li>随时停止使用并卸载应用，这将清除本地所有数据。</li>
+        </ul>
+
+        <h2>5. 联系我们</h2>
+        <p>如果您对本隐私政策有任何疑问，请联系我们：</p>
+        <div class="contact-box">
+            邮箱：10884882@qq.com<br>
+            电话：+86-158-0158-9195
+        </div>
     </div>
 
     <div id="tw" class="content-section">
-        <h1>隱私權政策</h1>
-        <p>最後更新: 2026/01/22</p>
-        <p>內容省略...</p>
+        <h1>TaskDone 隱私權政策</h1>
+        <div class="update-date">最後更新：2026年1月22日</div>
+
+        <h2>1. 資訊收集與使用</h2>
+        <p>我們收集的資訊僅用於提升應用程式體驗。具體包括：</p>
+        <ul>
+            <li><strong>基本應用程式資料：</strong> 匿名統計數據和崩潰日誌，用於修復錯誤。</li>
+            <li><strong>使用者內容：</strong> 您建立的任務、科目和備註儲存在本機或透過 iCloud 同步。</li>
+            <li><strong>裝置資訊：</strong> 裝置型號和作業系統版本，用於相容性最佳化。</li>
+        </ul>
+        <p>我們承諾不會未經授權收集您的敏感個人資訊。</p>
+
+        <h2>2. 資料儲存與保護</h2>
+        <p>TaskDone 是一款注重隱私的應用程式。您的資料主要儲存在您的裝置本機。如果您開啟了 iCloud，資料將加密儲存在 Apple 的伺服器上。我們無法存取您的 iCloud 資料。</p>
+
+        <h2>3. 資料共用</h2>
+        <p>我們不會將您的資料出售、出租或分享給任何第三方廣告商。僅在法律要求或為了保護我們的權利時，才可能揭露必要資訊。</p>
+
+        <h2>4. 使用者權利</h2>
+        <p>您擁有以下權利：</p>
+        <ul>
+            <li>存取、修改或刪除應用程式內儲存的所有資料。</li>
+            <li>隨時停止使用並解除安裝應用程式，這將清除本機所有資料。</li>
+        </ul>
+
+        <h2>5. 聯絡我們</h2>
+        <p>如果您對本隱私權政策有任何疑問，請聯絡我們：</p>
+        <div class="contact-box">
+            電子郵件：10884882@qq.com<br>
+            電話：+86-158-0158-9195
+        </div>
+    </div>
+
+    <div id="en" class="content-section">
+        <h1>TaskDone Privacy Policy</h1>
+        <div class="update-date">Last Updated: January 22, 2026</div>
+
+        <h2>1. Information Collection and Use</h2>
+        <p>We collect information solely to improve the app experience. This includes:</p>
+        <ul>
+            <li><strong>Basic App Data:</strong> Anonymous usage statistics and crash logs for bug fixing.</li>
+            <li><strong>User Content:</strong> Tasks, subjects, and notes you create are stored locally or synced via iCloud.</li>
+            <li><strong>Device Information:</strong> Device model and OS version for optimization.</li>
+        </ul>
+        <p>We do not collect sensitive personal information without your authorization.</p>
+
+        <h2>2. Data Storage and Protection</h2>
+        <p>TaskDone is privacy-focused. Your data is stored locally on your device. If you enable iCloud, data is stored securely on Apple's servers. We do not have access to your iCloud data.</p>
+
+        <h2>3. Data Sharing</h2>
+        <p>We do not sell, rent, or share your data with third-party advertisers. We may only disclose information if required by law.</p>
+
+        <h2>4. User Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+            <li>Access, modify, or delete all data stored within the app.</li>
+            <li>Stop using and uninstall the app at any time, which will remove all local data.</li>
+        </ul>
+
+        <h2>5. Contact Us</h2>
+        <p>If you have questions about this Privacy Policy, please contact us:</p>
+        <div class="contact-box">
+            Email: 10884882@qq.com<br>
+            Phone: +86-158-0158-9195
+        </div>
     </div>
 
     <div id="es" class="content-section">
-        <h1>Política de Privacidad</h1>
-        <p>Última actualización: 22/01/2026</p>
-        <p>Contenido omitido...</p>
+        <h1>Política de Privacidad de TaskDone</h1>
+        <div class="update-date">Última actualización: 22 de enero de 2026</div>
+
+        <h2>1. Recopilación y Uso de Información</h2>
+        <p>Recopilamos información únicamente para mejorar la experiencia de la aplicación:</p>
+        <ul>
+            <li><strong>Datos básicos de la app:</strong> Estadísticas anónimas y registros de fallos.</li>
+            <li><strong>Contenido del usuario:</strong> Las tareas y notas se almacenan localmente o en iCloud.</li>
+            <li><strong>Información del dispositivo:</strong> Modelo y versión del sistema operativo.</li>
+        </ul>
+        <p>Nos comprometemos a no recopilar información sensible sin autorización.</p>
+
+        <h2>2. Almacenamiento y Protección</h2>
+        <p>TaskDone se centra en la privacidad. Sus datos se almacenan localmente. Si usa iCloud, los datos se cifran en los servidores de Apple. Nosotros no tenemos acceso a ellos.</p>
+
+        <h2>3. Compartir Datos</h2>
+        <p>No vendemos ni alquilamos sus datos a terceros. Solo divulgaremos información si la ley lo exige.</p>
+
+        <h2>4. Derechos del Usuario</h2>
+        <p>Usted tiene derecho a:</p>
+        <ul>
+            <li>Acceder, modificar o eliminar todos los datos de la aplicación.</li>
+            <li>Desinstalar la aplicación en cualquier momento para borrar los datos locales.</li>
+        </ul>
+
+        <h2>5. Contáctenos</h2>
+        <p>Si tiene preguntas sobre esta política, contáctenos:</p>
+        <div class="contact-box">
+            Email: 10884882@qq.com<br>
+            Teléfono: +86-158-0158-9195
+        </div>
     </div>
 
 </body>
