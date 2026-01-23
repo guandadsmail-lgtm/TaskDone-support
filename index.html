@@ -3,177 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskDone - Support</title>
+    <title>TaskDone - Official Support</title>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; }
+        :root { --primary-color: #007AFF; --bg-color: #ffffff; --text-color: #333333; --light-bg: #f5f5f7; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; color: var(--text-color); line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
-        /* 语言切换按钮样式 */
-        .lang-nav { text-align: right; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .lang-btn { 
-            background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #666; margin-left: 5px; font-size: 14px;
-        }
-        .lang-btn.active { background: #007AFF; color: white; border-color: #007AFF; }
-        .lang-btn:hover { opacity: 0.8; }
+        /* 语言切换栏 */
+        .lang-nav { text-align: right; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        .lang-btn { background: none; border: 1px solid #ddd; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #666; margin-left: 8px; font-size: 14px; transition: all 0.3s; }
+        .lang-btn:hover { background: #eee; }
+        .lang-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
-        /* 内容区域样式 */
-        .content-section { display: none; } /* 默认隐藏所有 */
-        .content-section.active { display: block; animation: fadeIn 0.5s; } /* 激活时显示 */
+        /* 内容显隐控制 */
+        .content-section { display: none; animation: fadeIn 0.5s; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 营销区域样式 */
+        h1 { font-size: 2.5em; margin-bottom: 10px; text-align: center; }
+        .subtitle { font-size: 1.2em; color: #666; text-align: center; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .feature-box { background: var(--light-bg); padding: 25px; border-radius: 16px; text-align: center; }
+        .feature-box h3 { margin-top: 0; color: #000; }
         
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* 下载按钮 */
+        .cta-container { text-align: center; margin: 50px 0; }
+        .download-btn { background: #000; color: #fff; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .download-btn:hover { opacity: 0.8; }
+
+        /* 技术支持区域样式 */
+        .support-section { border-top: 1px solid #eee; padding-top: 40px; margin-top: 40px; }
+        .contact-card { background: #eef5ff; padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #d0e3ff; }
+        .contact-item { margin-bottom: 10px; font-weight: 500; }
+        .faq-item { margin-bottom: 20px; }
+        .faq-q { font-weight: bold; color: #000; display: block; margin-bottom: 5px; }
         
-        h1 { margin-bottom: 10px; }
-        .subtitle { color: #666; font-size: 1.1em; margin-bottom: 30px; }
-        .feature-box { background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 15px 0; }
-        .download-btn { display: inline-block; background: #007AFF; color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin: 30px 0; }
-        .contact-box { background: #eef5ff; padding: 20px; border-radius: 12px; margin-top: 30px; }
-        footer { margin-top: 50px; text-align: center; color: #888; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 20px; }
-        a { color: #007AFF; }
+        footer { text-align: center; margin-top: 60px; padding: 20px; font-size: 0.9em; color: #888; border-top: 1px solid #eee; }
+        footer a { color: var(--primary-color); text-decoration: none; }
     </style>
     <script>
         function switchLang(lang) {
-            // 1. 隐藏所有内容
             document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // 2. 显示选中的内容
             document.getElementById(lang).classList.add('active');
             document.getElementById('btn-' + lang).classList.add('active');
-            
-            // 3. 记住用户选择 (可选)
             localStorage.setItem('userLang', lang);
         }
-
-        // 页面加载时自动检测语言
         window.onload = function() {
-            // 优先读取上次选择，没有则检测浏览器语言
-            let savedLang = localStorage.getItem('userLang');
-            let browserLang = navigator.language || navigator.userLanguage;
-            
-            if (savedLang) {
-                switchLang(savedLang);
-            } else if (browserLang.includes('zh-TW') || browserLang.includes('zh-HK')) {
-                switchLang('tw');
-            } else if (browserLang.includes('zh')) {
-                switchLang('cn');
-            } else if (browserLang.includes('es')) {
-                switchLang('es');
-            } else {
-                switchLang('en'); // 默认英文
-            }
+            let saved = localStorage.getItem('userLang');
+            let sys = navigator.language || navigator.userLanguage;
+            if (saved) switchLang(saved);
+            else if (sys.includes('zh-TW') || sys.includes('zh-HK')) switchLang('tw');
+            else if (sys.includes('zh')) switchLang('cn');
+            else if (sys.includes('es')) switchLang('es');
+            else switchLang('en');
         }
     </script>
 </head>
 <body>
 
-    <div class="lang-nav">
-        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
+<div class="container">
+    <nav class="lang-nav">
         <button id="btn-cn" class="lang-btn" onclick="switchLang('cn')">简体中文</button>
         <button id="btn-tw" class="lang-btn" onclick="switchLang('tw')">繁體中文</button>
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
         <button id="btn-es" class="lang-btn" onclick="switchLang('es')">Español</button>
-    </div>
-
-    <div id="en" class="content-section">
-        <h1>TaskDone</h1>
-        <p class="subtitle">The Daily Focus Assignment Manager</p>
-        
-        <div class="feature-box">
-            <h3>Daily Focus</h3>
-            <p>See only what needs to be done today. No distractions.</p>
-        </div>
-        <div class="feature-box">
-            <h3>Subject Progress Rings</h3>
-            <p>Beautiful visual progress tracking for every subject.</p>
-        </div>
-        <div class="feature-box">
-            <h3>Smart Calendar</h3>
-            <p>The most elegant way to view upcoming assignment deadlines.</p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="#" class="download-btn">Download on the App Store</a>
-        </div>
-
-        <div class="contact-box">
-            <h2>Technical Support</h2>
-            <p>Email: 10884882@qq.com</p>
-            <p>Phone: +86-158-0158-9195</p>
-        </div>
-        
-        <h3>FAQ</h3>
-        <p><strong>Q: How do I backup my data?</strong><br>A: iCloud automatic backup supported.</p>
-    </div>
+    </nav>
 
     <div id="cn" class="content-section">
         <h1>TaskDone</h1>
-        <p class="subtitle">专注当下的作业管理器</p>
+        <p class="subtitle">专为学生设计的极简作业管理器。做一件事，做到极致。</p>
         
-        <div class="feature-box">
-            <h3>每日焦点</h3>
-            <p>只展示今天需要完成的任务，拒绝干扰。</p>
-        </div>
-        <div class="feature-box">
-            <h3>学科进度环</h3>
-            <p>每个科目都有精美的可视化进度展示。</p>
-        </div>
-        <div class="feature-box">
-            <h3>智能日历</h3>
-            <p>以最优雅的方式查看即将到来的作业截止日期。</p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="#" class="download-btn">立即下载</a>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>每日焦点</h3>
+                <p>只看今天需要完成的任务，拒绝干扰，提升效率。</p>
+            </div>
+            <div class="feature-box">
+                <h3>学科进度环</h3>
+                <p>每个科目都有精美的可视化进度展示，成就感满满。</p>
+            </div>
+            <div class="feature-box">
+                <h3>智能日历</h3>
+                <p>以最优雅的方式查看作业截止日期，不再错过 Deadline。</p>
+            </div>
         </div>
 
-        <div class="contact-box">
+        <div class="cta-container">
+            <a href="#" class="download-btn">在 App Store 下载</a>
+        </div>
+
+        <div class="support-section">
             <h2>技术支持</h2>
-            <p>邮箱: 10884882@qq.com</p>
-            <p>电话: +86-158-0158-9195</p>
+            <p>如果您遇到问题或有任何建议，请随时联系我们：</p>
+            
+            <div class="contact-card">
+                <div class="contact-item">📧 邮箱：10884882@qq.com</div>
+                <div class="contact-item">📞 电话：+86-158-0158-9195</div>
+                <div class="contact-item">📍 地址：北京市朝阳区望京利泽中园二区 203 号内 3号9层1907</div>
+            </div>
+
+            <h3>常见问题 (FAQ)</h3>
+            <div class="faq-item">
+                <span class="faq-q">Q: 如何备份我的数据？</span>
+                <span>A: 应用支持 iCloud 自动同步与备份，只要开启 iCloud，您的数据就是安全的。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: 应用支持哪些语言？</span>
+                <span>A: 目前支持简体中文、繁体中文、英语和西班牙语。</span>
+            </div>
         </div>
-        
-        <h3>常见问题</h3>
-        <p><strong>Q: 如何备份数据？</strong><br>A: 支持 iCloud 自动备份。</p>
     </div>
 
     <div id="tw" class="content-section">
         <h1>TaskDone</h1>
-        <p class="subtitle">專注當下的作業管理器</p>
+        <p class="subtitle">專為學生設計的極簡作業管理器。做一件事，做到極致。</p>
         
-        <div class="feature-box">
-            <h3>每日焦點</h3>
-            <p>只展示今天需要完成的任務，拒絕干擾。</p>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>每日焦點</h3>
+                <p>只看今天需要完成的任務，拒絕干擾，提升效率。</p>
+            </div>
+            <div class="feature-box">
+                <h3>科目進度環</h3>
+                <p>每個科目都有精美的可視化進度展示，成就感滿滿。</p>
+            </div>
+            <div class="feature-box">
+                <h3>智能行事曆</h3>
+                <p>以最優雅的方式查看作業截止日期，不再錯過 Deadline。</p>
+            </div>
         </div>
-        <p>...內容省略，請自行填入...</p>
-        <div style="text-align: center;">
-            <a href="#" class="download-btn">立即下載</a>
+
+        <div class="cta-container">
+            <a href="#" class="download-btn">在 App Store 下載</a>
         </div>
-        <div class="contact-box">
+
+        <div class="support-section">
             <h2>技術支援</h2>
-            <p>電子郵件: 10884882@qq.com</p>
+            <p>如果您遇到問題或有任何建議，請隨時聯絡我們：</p>
+            
+            <div class="contact-card">
+                <div class="contact-item">📧 電子郵件：10884882@qq.com</div>
+                <div class="contact-item">📞 電話：+86-158-0158-9195</div>
+                <div class="contact-item">📍 地址：北京市朝陽區望京利澤中園二區 203 號內 3號9層1907</div>
+            </div>
+
+            <h3>常見問題 (FAQ)</h3>
+            <div class="faq-item">
+                <span class="faq-q">Q: 如何備份我的資料？</span>
+                <span>A: 應用程式支援 iCloud 自動同步與備份，只要開啟 iCloud，您的資料就是安全的。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: 應用程式支援哪些語言？</span>
+                <span>A: 目前支援繁體中文、簡體中文、英語和西班牙語。</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="en" class="content-section">
+        <h1>TaskDone</h1>
+        <p class="subtitle">The minimalist assignment manager for students. One thing, done perfectly.</p>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>Daily Focus</h3>
+                <p>See only what needs to be done today. No distractions.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Subject Progress</h3>
+                <p>Beautiful visual progress rings for every subject to keep you motivated.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Smart Calendar</h3>
+                <p>The most elegant way to track upcoming deadlines.</p>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <a href="#" class="download-btn">Download on App Store</a>
+        </div>
+
+        <div class="support-section">
+            <h2>Technical Support</h2>
+            <p>If you encounter any issues or have suggestions, please contact us:</p>
+            
+            <div class="contact-card">
+                <div class="contact-item">📧 Email: 10884882@qq.com</div>
+                <div class="contact-item">📞 Phone: +86-158-0158-9195</div>
+                <div class="contact-item">📍 Addr: Room 1907, 9th Floor, No. 3, Building 203, Lize Zhongyuan Erqu, Wangjing, Chaoyang District, Beijing, China</div>
+            </div>
+
+            <h3>FAQ</h3>
+            <div class="faq-item">
+                <span class="faq-q">Q: How do I backup my data?</span>
+                <span>A: We support iCloud automatic sync and backup. Your data is safe as long as iCloud is enabled.</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: What languages are supported?</span>
+                <span>A: Currently English, Simplified Chinese, Traditional Chinese, and Spanish.</span>
+            </div>
         </div>
     </div>
 
     <div id="es" class="content-section">
         <h1>TaskDone</h1>
-        <p class="subtitle">Gestor de Tareas de Enfoque Diario</p>
+        <p class="subtitle">Gestor de tareas minimalista para estudiantes. Una sola cosa, hecha a la perfección.</p>
         
-        <div class="feature-box">
-            <h3>Enfoque Diario</h3>
-            <p>Mira solo lo que necesitas terminar hoy.</p>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>Enfoque Diario</h3>
+                <p>Mira solo lo que necesitas terminar hoy. Sin distracciones.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Progreso por Asignatura</h3>
+                <p>Hermosos anillos de progreso visual para cada materia.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Calendario Inteligente</h3>
+                <p>La forma más elegante de seguir las fechas de entrega.</p>
+            </div>
         </div>
-        <p>...Contenido omitido, por favor rellene...</p>
-        <div style="text-align: center;">
-            <a href="#" class="download-btn">Descárgala Ahora</a>
+
+        <div class="cta-container">
+            <a href="#" class="download-btn">Descargar en App Store</a>
         </div>
-        <div class="contact-box">
+
+        <div class="support-section">
             <h2>Soporte Técnico</h2>
-            <p>Correo electrónico: 10884882@qq.com</p>
+            <p>Si tienes problemas o sugerencias, contáctanos:</p>
+            
+            <div class="contact-card">
+                <div class="contact-item">📧 Email: 10884882@qq.com</div>
+                <div class="contact-item">📞 Teléfono: +86-158-0158-9195</div>
+                <div class="contact-item">📍 Dirección: Room 1907, 9th Floor, No. 3, Building 203, Lize Zhongyuan Erqu, Wangjing, Chaoyang District, Beijing, China</div>
+            </div>
+
+            <h3>Preguntas Frecuentes (FAQ)</h3>
+            <div class="faq-item">
+                <span class="faq-q">Q: ¿Cómo hago una copia de seguridad?</span>
+                <span>A: Soportamos sincronización y respaldo automático en iCloud. Tus datos están seguros.</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: ¿Qué idiomas están disponibles?</span>
+                <span>A: Actualmente Español, Inglés, Chino Simplificado y Chino Tradicional.</span>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 TaskDone. All rights reserved.</p>
-        <p><a href="privacy.html">Privacy Policy (隐私政策)</a></p>
+        <p><a href="privacy.html">Privacy Policy / 隐私政策</a></p>
     </footer>
+</div>
 
 </body>
 </html>
