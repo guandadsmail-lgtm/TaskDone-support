@@ -1,61 +1,179 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TaskDone% - 官方主页</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskDone - Support</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
-        .section { margin-bottom: 40px; }
-        h1 { color: #333; }
-        h2 { color: #666; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        ul { line-height: 1.6; }
-        .feature { background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; }
+        
+        /* 语言切换按钮样式 */
+        .lang-nav { text-align: right; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .lang-btn { 
+            background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #666; margin-left: 5px; font-size: 14px;
+        }
+        .lang-btn.active { background: #007AFF; color: white; border-color: #007AFF; }
+        .lang-btn:hover { opacity: 0.8; }
+
+        /* 内容区域样式 */
+        .content-section { display: none; } /* 默认隐藏所有 */
+        .content-section.active { display: block; animation: fadeIn 0.5s; } /* 激活时显示 */
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        h1 { margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.1em; margin-bottom: 30px; }
+        .feature-box { background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 15px 0; }
+        .download-btn { display: inline-block; background: #007AFF; color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin: 30px 0; }
+        .contact-box { background: #eef5ff; padding: 20px; border-radius: 12px; margin-top: 30px; }
+        footer { margin-top: 50px; text-align: center; color: #888; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 20px; }
+        a { color: #007AFF; }
     </style>
+    <script>
+        function switchLang(lang) {
+            // 1. 隐藏所有内容
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // 2. 显示选中的内容
+            document.getElementById(lang).classList.add('active');
+            document.getElementById('btn-' + lang).classList.add('active');
+            
+            // 3. 记住用户选择 (可选)
+            localStorage.setItem('userLang', lang);
+        }
+
+        // 页面加载时自动检测语言
+        window.onload = function() {
+            // 优先读取上次选择，没有则检测浏览器语言
+            let savedLang = localStorage.getItem('userLang');
+            let browserLang = navigator.language || navigator.userLanguage;
+            
+            if (savedLang) {
+                switchLang(savedLang);
+            } else if (browserLang.includes('zh-TW') || browserLang.includes('zh-HK')) {
+                switchLang('tw');
+            } else if (browserLang.includes('zh')) {
+                switchLang('cn');
+            } else if (browserLang.includes('es')) {
+                switchLang('es');
+            } else {
+                switchLang('en'); // 默认英文
+            }
+        }
+    </script>
 </head>
 <body>
-    <!-- 营销部分开始 -->
-    <div class="section">
-        <h1>TaskDone%>Task
-        <p>一款专为学生和效能人士设计的作业管理器应用，我们只做一件事，但做到极致： 让你今天的学习任务变得可见、可追踪、可完成。</p>
-        
-        <h2>主要功能</h2>
-        <div class="feature">
-            <strong>功能一：</strong> 每日焦点 -- 只看到今天需要完成的任务
-        </div>
-        <div class="feature">
-            <strong>功能二：</strong>学科进度环 -- 每个科目都有美丽的进度可视化
-        </div>
-        <div class="feature">
-            <strong>功能三：</strong> 智能日历 -- 以最优雅的方式查看即将到来的作业
-        </div>
-        
-        <h2>App截图</h2>
-        <p>在App Store查看完整截图集</p>
-        
-        <h2>立即下载</h2>
-        <p>在App Store搜索"TaskDone%"或直接扫描二维码下载。</p>
-    </div>
-    <!-- 营销部分结束 -->
 
-    <!-- 技术支持部分（必须保留） -->
-    <div class="section">
-        <h2>技术支持</h2>
-        <p>如果您在使用过程中遇到任何问题，请通过以下方式联系我们：</p>
-        <ul>
-            <li>邮箱：10884882@qq.com</li>
-            <li>电话：+86-158-0158-9195</li>
-            <li>地址：北京市朝阳区望京利泽中园二区 203 号内 3号9层1907</li>
-        </ul>
-        
-        <h2>常见问题</h2>
-        <p><strong>Q: 如何备份数据？</strong><br>
-        A: 应用支持iCloud自动备份，也可手动导出数据。</p>
-        
-        <p><strong>Q: 是否支持多语言？</strong><br>
-        A: 目前支持中文和英文。</p>
-        
-        <h2>反馈与建议</h2>
-        <p>我们非常重视您的反馈，欢迎提出功能建议和改进意见。</p>
+    <div class="lang-nav">
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
+        <button id="btn-cn" class="lang-btn" onclick="switchLang('cn')">简体中文</button>
+        <button id="btn-tw" class="lang-btn" onclick="switchLang('tw')">繁體中文</button>
+        <button id="btn-es" class="lang-btn" onclick="switchLang('es')">Español</button>
     </div>
+
+    <div id="en" class="content-section">
+        <h1>TaskDone</h1>
+        <p class="subtitle">The Daily Focus Assignment Manager</p>
+        
+        <div class="feature-box">
+            <h3>Daily Focus</h3>
+            <p>See only what needs to be done today. No distractions.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Subject Progress Rings</h3>
+            <p>Beautiful visual progress tracking for every subject.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Smart Calendar</h3>
+            <p>The most elegant way to view upcoming assignment deadlines.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="#" class="download-btn">Download on the App Store</a>
+        </div>
+
+        <div class="contact-box">
+            <h2>Technical Support</h2>
+            <p>Email: 10884882@qq.com</p>
+            <p>Phone: +86-158-0158-9195</p>
+        </div>
+        
+        <h3>FAQ</h3>
+        <p><strong>Q: How do I backup my data?</strong><br>A: iCloud automatic backup supported.</p>
+    </div>
+
+    <div id="cn" class="content-section">
+        <h1>TaskDone</h1>
+        <p class="subtitle">专注当下的作业管理器</p>
+        
+        <div class="feature-box">
+            <h3>每日焦点</h3>
+            <p>只展示今天需要完成的任务，拒绝干扰。</p>
+        </div>
+        <div class="feature-box">
+            <h3>学科进度环</h3>
+            <p>每个科目都有精美的可视化进度展示。</p>
+        </div>
+        <div class="feature-box">
+            <h3>智能日历</h3>
+            <p>以最优雅的方式查看即将到来的作业截止日期。</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="#" class="download-btn">立即下载</a>
+        </div>
+
+        <div class="contact-box">
+            <h2>技术支持</h2>
+            <p>邮箱: 10884882@qq.com</p>
+            <p>电话: +86-158-0158-9195</p>
+        </div>
+        
+        <h3>常见问题</h3>
+        <p><strong>Q: 如何备份数据？</strong><br>A: 支持 iCloud 自动备份。</p>
+    </div>
+
+    <div id="tw" class="content-section">
+        <h1>TaskDone</h1>
+        <p class="subtitle">專注當下的作業管理器</p>
+        
+        <div class="feature-box">
+            <h3>每日焦點</h3>
+            <p>只展示今天需要完成的任務，拒絕干擾。</p>
+        </div>
+        <p>...內容省略，請自行填入...</p>
+        <div style="text-align: center;">
+            <a href="#" class="download-btn">立即下載</a>
+        </div>
+        <div class="contact-box">
+            <h2>技術支援</h2>
+            <p>電子郵件: 10884882@qq.com</p>
+        </div>
+    </div>
+
+    <div id="es" class="content-section">
+        <h1>TaskDone</h1>
+        <p class="subtitle">Gestor de Tareas de Enfoque Diario</p>
+        
+        <div class="feature-box">
+            <h3>Enfoque Diario</h3>
+            <p>Mira solo lo que necesitas terminar hoy.</p>
+        </div>
+        <p>...Contenido omitido, por favor rellene...</p>
+        <div style="text-align: center;">
+            <a href="#" class="download-btn">Descárgala Ahora</a>
+        </div>
+        <div class="contact-box">
+            <h2>Soporte Técnico</h2>
+            <p>Correo electrónico: 10884882@qq.com</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TaskDone. All rights reserved.</p>
+        <p><a href="privacy.html">Privacy Policy (隐私政策)</a></p>
+    </footer>
+
 </body>
 </html>
